@@ -11,6 +11,7 @@ class PastebinCrawler:
 		print "Init connection with pastebin.com ... " + "\033[92mOk\033[0m";
 		
 	def crawl(self):
+		while True:
 			""" Generate page id then request page"""
 			generatedNumber = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(8));
 			requestedPage = "/raw/" + generatedNumber;
