@@ -3,7 +3,7 @@ import random
 import string
 
 class PastebinCrawler:
-	url = "www.pastebin.com";
+	url = "pastebin.com";
 
 	def __init__(self):
 		""" Init connection """
@@ -11,16 +11,16 @@ class PastebinCrawler:
 		print "Init connection with pastebin.com ... " + "\033[92mOk\033[0m";
 		
 	def crawl(self):
-		while True:
 			""" Generate page id then request page"""
-			requestedPage = "/raw/" + ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(8));
+			generatedNumber = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(8));
+			requestedPage = "/raw/" + generatedNumber;
 			self.httpConnection.request("GET", requestedPage);
 			
 			""" Get status and response """
 			response = self.httpConnection.getresponse();
-			if response.status == 400:
+			if response.status == 200:
 				print self.url + requestedPage + " \033[92mFound\033[0m";
-				with open(requestedPage, 'w+') as f:
+				with open(generatedNumber, 'w') as f:
 					f.write(response.read());
 			else:
 				print self.url + requestedPage + " \033[31mNot found\033[0m";
